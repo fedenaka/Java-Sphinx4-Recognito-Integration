@@ -18,6 +18,7 @@ public class Main {
 	static CMUSphinx sphix = new CMUSphinx();
 	static MicRecorder micRec = new MicRecorder();
 	static RecognSpeaker recognition = new RecognSpeaker();
+	static String nombre = "Fede";
 	
 	public static void main(String[] args) {
 		
@@ -35,7 +36,7 @@ public class Main {
         frame.setResizable(false);
         
         JPanel pane = new JPanel();
-        JTextArea label = new JTextArea("Hello World", 5, 20);
+        JTextArea label = new JTextArea("1. Presiona el botón de grabar\n2. Deci un comando\n3. Paralo y espera el resultado", 5, 20);
         JButton btnGrabar = new JButton("Grabar");
         JButton btnComando = new JButton("Parar");
         
@@ -55,8 +56,8 @@ public class Main {
         	btnGrabar.setEnabled(true);
         	
         	micRec.stopMicrophone();
-        	
-        	if(recognition.startRecognition("test.wav")) {
+        	if(recognition.startRecognition("test.wav", nombre)) {
+        		label.setText("Verificado..");
         		
         		try {
         			
