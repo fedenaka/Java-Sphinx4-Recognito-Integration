@@ -11,7 +11,7 @@ import com.bitsinharmony.recognito.Recognito;
 
 public class RecognSpeaker {
 	
-	private String[] grabaciones = { "grabacion1", "grabacion2", "grabacion3", "grabacion4", "grabacion5", "grabacion6", "grabacion7", "grabacion8", "grabacion9", "grabacion10" };
+	private String[] grabaciones = { "Nico1", "Nico2", "Nico3", "Fede1", "Fede2", "Fede3", "Fede4", "Fede5", "Fede6", "Fede7" };
 	private Recognito<String> recognito = new Recognito<>(16000.0f);
 	
 	public RecognSpeaker() {
@@ -27,21 +27,27 @@ public class RecognSpeaker {
 		
 	}
 	
-	public boolean startRecognition(String fileName) {
+	public boolean startRecognition(String fileName, String nombre) {
 
 		try {
 			
 			List<MatchResult<String>> matches = recognito.identify(new File(fileName));
+			String nombreParecido = "";
+			int mayor = 0, actual = 0;
 			
-			int totalMatches = 0, totalLikely = 0;
 			for(MatchResult<String> match : matches) {
-				totalMatches++;
-				totalLikely += match.getLikelihoodRatio();
+				System.out.println("Nombre audio: " + match.getKey());
+				actual = match.getLikelihoodRatio();
+				System.out.println("Likehoodratio: " + match.getLikelihoodRatio());
+				if (actual > mayor && match.getKey().contains(nombre)){
+					nombreParecido = match.getKey();
+					mayor = actual;
+				}
 			}
-			
-			if(totalLikely / totalMatches > 40)
+			System.out.println("Nombre parecido: " + nombreParecido + " %: " + mayor);
+			if(mayor > 75){
 				return true;
-			
+			}
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
 		}
