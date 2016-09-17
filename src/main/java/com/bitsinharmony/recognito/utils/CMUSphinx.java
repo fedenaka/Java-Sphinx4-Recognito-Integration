@@ -16,17 +16,20 @@ public class CMUSphinx {
 			
 			Configuration configuration = new Configuration();
 			
+			// Se setean los modelos que se van a utilizar para el dictado
 			configuration.setAcousticModelPath("es/es");
 			configuration.setDictionaryPath("es/es.dict");
 			configuration.setLanguageModelPath("es/es.lm");
 			
 			StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
 			
+			// Se elije el archivo del cual se va a realizar el reconocimiento
 			InputStream stream = new FileInputStream("test.wav");
 			recognizer.startRecognition(stream);
 			
 			SpeechResult result = recognizer.getResult();
 			
+			// Si hay un resultado se devuelve la hipotesis
 			if (result != null) {
 				recognizer.stopRecognition();
 				return result.getHypothesis();
