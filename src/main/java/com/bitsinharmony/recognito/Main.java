@@ -19,7 +19,6 @@ public class Main {
 	static SoundRecorder recorder = new SoundRecorder();
 	static CMUSphinx sphix = new CMUSphinx();
 	static RecognSpeaker recognition = new RecognSpeaker();
-	static String nombre = "Fede";
 	
 	public static void main(String[] args) {
 		
